@@ -15,8 +15,16 @@ export default function CheckoutCart() {
 
     function handleClose() { hideCart() }
 
+    function handleSubmit(event) {
+        event.preventDefault()
+
+        const fd = new FormData(event.target)
+        const customerData = Object.fromEntries(fd.entries()) // Convert the form data into js object
+
+    }
+
     return <Modal open={progress === 'checkout'} onClose={handleClose}>
-        <form>
+        <form onSubmit={handleSubmit}>
             <h2>Checkout</h2>
             <p>Total Amount: {currencyFormatter.format(cartTotal)}</p>
 
