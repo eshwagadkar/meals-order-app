@@ -15,12 +15,23 @@ export default function CheckoutCart() {
 
     function handleClose() { hideCart() }
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault()
 
         const fd = new FormData(event.target)
         const customerData = Object.fromEntries(fd.entries()) // Convert the form data into js object
 
+        const response = await fetch('http://localhost:3000/orders', {
+            method: 'POST',
+            body: JSON.stringify({order : { items, customer: customerData }}),
+            headers: {
+                'Content-Type' : 'application/json',
+            }
+        })
+
+        if(!response.ok) {
+
+        }
     }
 
     return <Modal open={progress === 'checkout'} onClose={handleClose}>
@@ -28,7 +39,7 @@ export default function CheckoutCart() {
             <h2>Checkout</h2>
             <p>Total Amount: {currencyFormatter.format(cartTotal)}</p>
 
-            <Input label='Full Name' type='text' id='full-name' />
+            <Input label='Full Name' type='text' id='name' />
             <Input label='Email Address' type='email' id='email' />
             <Input label='Street' type='text' id='street' />
             <div className="control-row">
