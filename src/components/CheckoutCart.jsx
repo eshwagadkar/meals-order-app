@@ -35,16 +35,9 @@ export default function CheckoutCart() {
         clearStates()
      }
 
-    async function handleSubmit(event) {
-        event.preventDefault()
-
-        const fd = new FormData(event.target)
+    async function checkoutAction(fd) {
         const customerData = Object.fromEntries(fd.entries()) // Convert the form data into js object
-
-        sendRequest(JSON.stringify({order : { items, customer: customerData }}))
-
-
-
+        await sendRequest(JSON.stringify({order : { items, customer: customerData }}))
     }
 
     let actions = ( <>
@@ -68,7 +61,7 @@ export default function CheckoutCart() {
     }
 
     return <Modal open={progress === 'checkout'} onClose={handleClose}>
-        <form onSubmit={handleSubmit}>
+        <form action={checkoutAction}>
             <h2>Checkout</h2>
             <p>Total Amount: {currencyFormatter.format(cartTotal)}</p>
 
