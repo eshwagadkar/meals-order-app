@@ -253,6 +253,10 @@ h1 {
   text-align: center;
 }
 
+.p-20{
+  padding: 20px 0;
+}
+
 .error {
   width: 90%;
   max-width: 25rem;
