@@ -18,7 +18,7 @@ export default function CheckoutCart() {
     const { items, clearCart } = useContext(CartContext)
     const { hideCheckout, progress } = useContext(UserProgressContext)
     
-    const { data, isLoading, error, sendRequest } = useHttp(
+    const { data, isLoading, error, sendRequest, clearStates } = useHttp(
         'http://localhost:3000/orders',
          requestConfig)
 
@@ -29,6 +29,7 @@ export default function CheckoutCart() {
     function handleFinish() { 
         hideCheckout()
         clearCart()
+        clearStates()
      }
 
     async function handleSubmit(event) {
