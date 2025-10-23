@@ -24,7 +24,10 @@ export default function CheckoutCart() {
 
     const cartTotal = items.reduce((totalPrice, item) => totalPrice + item.quantity * item.price , 0)
 
-    function handleClose() { hideCheckout() }
+    function handleClose() { 
+        hideCheckout()
+        clearStates()
+    }
 
     function handleFinish() { 
         hideCheckout()
@@ -39,6 +42,8 @@ export default function CheckoutCart() {
         const customerData = Object.fromEntries(fd.entries()) // Convert the form data into js object
 
         sendRequest(JSON.stringify({order : { items, customer: customerData }}))
+
+
 
     }
 
