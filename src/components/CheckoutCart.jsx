@@ -5,12 +5,13 @@ import { currencyFormatter } from '../util/formatting'
 import UserProgressContext from '../store/UserProgressContext'
 import Input from './UI/Input'
 import Button from './UI/Button'
+import useHttp from '../hooks/useHttp'
 
 export default function CheckoutCart() {
     
     const { items } = useContext(CartContext)
     const { hideCheckout, hideCart, progress } = useContext(UserProgressContext)
-
+    const { sendRequest } = useHttp()
     const cartTotal = items.reduce((totalPrice, item) => totalPrice + item.quantity * item.price , 0)
 
     function handleClose() { hideCart() }
@@ -21,7 +22,7 @@ export default function CheckoutCart() {
         const fd = new FormData(event.target)
         const customerData = Object.fromEntries(fd.entries()) // Convert the form data into js object
 
-        const response = await fetch('http://localhost:3000/orders', {
+        const response = await sendRequest('http://localhost:3000/orders', {
             method: 'POST',
             body: JSON.stringify({order : { items, customer: customerData }}),
             headers: {
@@ -29,9 +30,9 @@ export default function CheckoutCart() {
             }
         })
 
-        if(!response.ok) {
+        
 
-        }
+
     }
 
     return <Modal open={progress === 'checkout'} onClose={handleClose}>
