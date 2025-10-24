@@ -19,7 +19,7 @@ export default function CheckoutCart() {
     const { hideCheckout, progress } = useContext(UserProgressContext)
     
     const { data, isLoading, error, sendRequest, clearStates } = useHttp(
-        'http://localhost:3000/orders',
+        'https://meal-order-app-backend-server.onrender.com/orders',
          requestConfig)
 
     const cartTotal = items.reduce((totalPrice, item) => totalPrice + item.quantity * item.price , 0)
